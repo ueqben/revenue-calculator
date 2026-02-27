@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revenue Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Top Nav Bar ── -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">&#9632;</span>
+      <span class="topbar-title">Revenue Calculator</span>
+    </div>
+    <div class="topbar-right">
+      <span id="nav-month"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ── Left Sidebar: Summary Stats ── -->
+    <aside class="sidebar">
+
+      <div class="stat-card highlight">
+        <div class="stat-label">Total Monthly Revenue</div>
+        <div class="stat-value" id="total-revenue">$0.00</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Total Clients</div>
+        <div class="stat-value" id="total-clients">0</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Total Hrs / Week</div>
+        <div class="stat-value" id="total-hours">0</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Avg. Hourly Rate</div>
+        <div class="stat-value" id="avg-rate">$0.00</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Avg. Revenue / Client</div>
+        <div class="stat-value" id="avg-revenue">$0.00</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Top Earning Client</div>
+        <div class="stat-value stat-value--sm" id="top-client">—</div>
+      </div>
+
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main">
+
+      <!-- Add Client Form -->
+      <section class="card form-card">
+        <h2 class="card-title">Add Client</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="client-name">Client Name</label>
+            <input type="text" id="client-name" placeholder="e.g. Acme Corp" />
+          </div>
+          <div class="form-group">
+            <label for="client-hours">Hrs / Week</label>
+            <input type="number" id="client-hours" placeholder="e.g. 10" min="0" step="1" />
+          </div>
+          <div class="form-group">
+            <label for="client-rate">Hourly Rate ($)</label>
+            <input type="number" id="client-rate" placeholder="e.g. 150" min="0" step="1" />
+          </div>
+          <div class="form-group form-group--btn">
+            <button class="btn btn-primary" onclick="addClient()">+ Add Client</button>
+          </div>
+        </div>
+        <p class="form-hint" id="form-error"></p>
+      </section>
+
+      <!-- Client Table -->
+      <section class="card table-card">
+        <div class="table-header">
+          <h2 class="card-title">Client Breakdown</h2>
+          <div class="table-actions">
+            <span class="table-count" id="table-count">0 clients</span>
+            <button class="btn btn-ghost" onclick="clearAll()">Clear All</button>
+          </div>
+        </div>
+
+        <!-- Empty state shown when no clients exist -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">📋</div>
+          <p>No clients yet. Add your first client above to get started.</p>
+        </div>
+
+        <!-- The data table (hidden when empty) -->
+        <div class="table-wrapper" id="table-wrapper" style="display:none;">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-num">#</th>
+                <th class="col-name">Client Name</th>
+                <th class="col-hours">Hrs / Wk</th>
+                <th class="col-hours-mo">Hrs / Mo</th>
+                <th class="col-rate">Hourly Rate</th>
+                <th class="col-subtotal">Monthly Total</th>
+                <th class="col-share">Revenue Share</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="client-tbody">
+              <!-- Rows injected by app.js -->
+            </tbody>
+            <tfoot>
+              <tr class="tfoot-row">
+                <td colspan="2" class="tfoot-label">Monthly Total</td>
+                <td class="tfoot-val" id="foot-hours-wk">0</td>
+                <td class="tfoot-val" id="foot-hours-mo">0</td>
+                <td class="tfoot-val">—</td>
+                <td class="tfoot-val" id="foot-total">$0.00</td>
+                <td class="tfoot-val">100%</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
